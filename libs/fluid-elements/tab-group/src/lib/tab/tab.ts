@@ -33,6 +33,7 @@ import {
   fluidDtText,
 } from '@dynatrace/fluid-design-tokens';
 
+/** A unique id */
 let _unique = 0;
 
 /**
@@ -109,6 +110,10 @@ export class FluidTab extends LitElement {
       .fluid-state--active::after {
         background-color: var(--color-primary-100);
       }
+
+      .fluid-tab:not(.fluid-state--tabbed) {
+        outline: none;
+      }
     `;
   }
 
@@ -148,13 +153,12 @@ export class FluidTab extends LitElement {
    * @attr
    * @type number
    */
-  @property({ type: Number, reflect: true })
+  @property({ type: Number, reflect: false })
   get tabindex(): number {
     return this._tabindex;
   }
   set tabindex(value: number) {
     this._tabindex = value;
-    // TODO: Figure out why using the old value does not work. The attribute vanishes in the dom/is not set
     this.requestUpdate('tabindex');
   }
   private _tabindex = 0;
@@ -168,21 +172,42 @@ export class FluidTab extends LitElement {
   get active(): boolean {
     return this._active;
   }
-  set active(active: boolean) {
+  set active(value: boolean) {
+    const oldActive = this._active;
     // Only set active true if not disabled
-    this._active = this.disabled === false ? active : false;
-    // TODO: Figure out why using the old value does not work. The attribute vanishes in the dom/is not set
-    this.requestUpdate('active');
+    this._active = this.disabled === false ? value : false;
+    this.requestUpdate('active', oldActive);
     this.tabindex = this.active ? 0 : -1;
   }
   private _active = false;
 
-  /** Dispatches the custom event  */
+  /** Defines whether the user focused an element by tabbing or not */
+  @property({ type: Boolean, reflect: false })
+  get tabbed(): boolean {
+    return this._tabbed;
+  }
+  set tabbed(value: boolean) {
+    const oldTabbed = this.tabbed;
+    this._tabbed = value;
+    this.requestUpdate('tabbed', oldTabbed);
+    this.tabindex = value === true ? 0 : -1;
+  }
+  private _tabbed = false;
+
+  private _rootElement: HTMLSpanElement;
+
+  /** First updated lifecycle */
+  firstUpdated(props: Map<string | number | symbol, unknown>): void {
+    super.firstUpdated(props);
+    this._rootElement = this.shadowRoot?.querySelector('span')!;
+  }
+
+  /** Dispatches the custom event with the tabid of the clicked tab  */
   private dispatchActiveTabEvent(): void {
     this.dispatchEvent(new FluidTabActivatedEvent(this.tabid));
   }
 
-  /** Handles the click event */
+  /** Handles the click event. Dispatches the tab when a new tab was clicked */
   private handleClick(): void {
     if (!this._active) {
       this.dispatchActiveTabEvent();
@@ -196,16 +221,23 @@ export class FluidTab extends LitElement {
   render(): TemplateResult {
     const classes = {
       'fluid-tab': true,
+      'fluid-state--tabbed': this.tabbed,
       'fluid-state--active': this._active,
     };
 
     // Linebreak causes the element to have a space
     return html`<span
       class=${classMap(classes)}
+      tabindex=${this.tabindex}
       ?disabled="${this.disabled}"
       @click="${this.handleClick}"
     >
       <slot></slot>
     </span>`;
+  }
+
+  /** Focuses the span element in the template */
+  focus(): void {
+    this._rootElement.focus();
   }
 }

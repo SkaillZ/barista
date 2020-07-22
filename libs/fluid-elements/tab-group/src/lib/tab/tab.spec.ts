@@ -32,9 +32,7 @@ describe('Fluid tab', () => {
 
   /** Checks if the current fixture has an active tab */
   function isActive(): boolean {
-    return (
-      fixture.shadowRoot?.querySelector('fluid-state--active') !== undefined
-    );
+    return fixture.shadowRoot?.querySelector('.fluid-state--active') !== null;
   }
 
   beforeEach(() => {
@@ -65,7 +63,6 @@ describe('Fluid tab', () => {
   });
 
   describe('active attribute', () => {
-    // Attributes: tabid, disabled, active
     it('should set the state to active when the attribute is set to true', async () => {
       fixture.setAttribute('active', '');
       await tick();
@@ -73,11 +70,32 @@ describe('Fluid tab', () => {
       expect(isActive()).toBeTruthy();
     });
 
-    it('should set the state to active when the attribute is set to true', async () => {
+    it('should set the state to active when the property is set to true', async () => {
       fixture.active = true;
       await tick();
       expect(fixture.active).toBeTruthy();
       expect(isActive()).toBeTruthy();
+    });
+
+    it('should remove active when the attribute is removed', async () => {
+      fixture.setAttribute('active', 'true');
+      await tick();
+      fixture.removeAttribute('active');
+      await tick();
+      expect(fixture.active).toBeFalsy();
+    });
+
+    it('should remove active when the property is set to false', async () => {
+      fixture.active = true;
+      await tick();
+      expect(
+        fixture.shadowRoot
+          ?.querySelector('span')
+          ?.classList.contains('fluid-state--active'),
+      ).toBeTruthy();
+      fixture.active = false;
+      await tick();
+      expect(fixture.getAttribute('active')).toBeFalsy();
     });
   });
 
