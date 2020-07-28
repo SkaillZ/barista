@@ -25,7 +25,11 @@ import {
   customElement,
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
-import { FluidTabDisabledEvent, FluidTabActivatedEvent } from '../tab-events';
+import {
+  FluidTabDisabledEvent,
+  FluidTabActivatedEvent,
+  FluidTabBlurredEvent,
+} from '../tab-events';
 
 import {
   FLUID_SPACING_3X_SMALL,
@@ -199,7 +203,9 @@ export class FluidTab extends LitElement {
   /** First updated lifecycle */
   firstUpdated(props: Map<string | number | symbol, unknown>): void {
     super.firstUpdated(props);
-    this._rootElement = this.shadowRoot?.querySelector('span')!;
+    this._rootElement = this.shadowRoot?.querySelector(
+      '.fluid-tab',
+    )! as HTMLSpanElement;
   }
 
   /** Dispatches the custom event with the tabid of the clicked tab  */
@@ -211,6 +217,13 @@ export class FluidTab extends LitElement {
   private handleClick(): void {
     if (!this._active) {
       this.dispatchActiveTabEvent();
+    }
+  }
+
+  /** Handles setting the tabindex to 0 on the active tab when focused is lost on a tab that was not activated */
+  private handleBlur(): void {
+    if (this.tabbed && !this.active) {
+      this.dispatchEvent(new FluidTabBlurredEvent(this.tabid));
     }
   }
 
@@ -231,6 +244,7 @@ export class FluidTab extends LitElement {
       tabindex=${this.tabindex}
       ?disabled="${this.disabled}"
       @click="${this.handleClick}"
+      @blur="${this.handleBlur}"
     >
       <slot></slot>
     </span>`;

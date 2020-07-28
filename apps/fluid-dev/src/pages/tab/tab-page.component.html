@@ -68,6 +68,12 @@
   </section>
 </div>
 
+<p>Setting the active attribute on the tab (A) itself and the tab-group (B)</p>
+<fluid-tab-group activeTabId="b">
+  <fluid-tab tabid="a" active>A</fluid-tab>
+  <fluid-tab tabid="b">B</fluid-tab>
+</fluid-tab-group>
+
 <div>
   <h2>Logs</h2>
   <code *ngFor="let log of logs">
