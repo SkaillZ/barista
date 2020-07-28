@@ -96,10 +96,11 @@ export class FluidTabGroup extends LitElement {
 
     if (toActivateTab) {
       // Resets the tabindexes
-      for (const tabItem of this.tabChildren) {
-        tabItem.tabindex = -1;
-        tabItem.active = false;
-        tabItem.tabbed = false;
+      const toResetTab = this.tabChildren.find((tab) => tab.active);
+      if (toResetTab) {
+        toResetTab.tabindex = -1;
+        toResetTab.active = false;
+        toResetTab.tabbed = false;
       }
       this.activeTabId = event.tabId;
 
@@ -119,16 +120,17 @@ export class FluidTabGroup extends LitElement {
         focusableTab.tabbed = true;
       }
     }
+
     // Selection control. Selects the tab that was previously focused using tab/arrowkeys
     if (event.code === ENTER || event.code === SPACE) {
-      // Find the tab to be activated
       const toBeActivatedTab = this.tabChildren.find(
         (tab) => tab.tabindex === 0,
       );
 
       if (toBeActivatedTab) {
-        for (const tabItem of this.tabChildren) {
-          tabItem.active = false;
+        const toDeactivateTab = this.tabChildren.find((tab) => tab.active);
+        if (toDeactivateTab) {
+          toDeactivateTab.active = false;
         }
 
         toBeActivatedTab.active = true;
@@ -142,8 +144,6 @@ export class FluidTabGroup extends LitElement {
         (tab: FluidTab) => tab.tabindex === 0,
       );
       const oldIndex = index;
-      // Arrow control checks what the next tab is and jumps to the
-      // first/last when navigating back from the first and forth from the last tab.
       if (event.code === ARROW_RIGHT) {
         index += 1;
       }
@@ -164,8 +164,6 @@ export class FluidTabGroup extends LitElement {
 
   /** Event handler for key down events. Prevention of default scroll behavior on the SPACE key */
   private handleKeyDown(event: KeyboardEvent): void {
-    // In order to prevent the browser to scroll when the user selects a tab using the spacebar
-    // we prevent the default behavior.
     if (event.code === SPACE) {
       event.preventDefault();
     }
