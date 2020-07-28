@@ -39,7 +39,8 @@ import {
 } from '@angular/core';
 
 import { DtOption } from '@dynatrace/barista-components/core';
-import { Subscription } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 
 let _uniqueIdCounter = 0;
 
@@ -220,6 +221,16 @@ export class DtAutocomplete<T>
 
   ngAfterViewInit(): void {
     this._portal = new TemplatePortal(this._template, this._viewContainerRef);
+    this._options.changes
+      .pipe(
+        startWith(null),
+        switchMap(() =>
+          merge(...this._options.map((option) => option._optionHovered)),
+        ),
+      )
+      .subscribe((a) => {
+        this._keyManager.setActiveItem(a);
+      });
   }
 
   ngAfterContentInit(): void {

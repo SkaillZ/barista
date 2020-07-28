@@ -62,6 +62,7 @@ export class DtOptionSelectionChange<T> {
     '[class.dt-option-disabled]': 'disabled',
     '(click)': '_handleClick($event)',
     '(keydown)': '_handleKeydown($event)',
+    '(mousemove)': '_handleMouseMove()',
     class: 'dt-option',
   },
   styleUrls: ['option.scss'],
@@ -223,6 +224,14 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
     event.stopImmediatePropagation();
 
     this._selectViaInteraction();
+  }
+
+  _optionHovered = new Subject<DtOption<T>>();
+
+  _handleMouseMove(): void {
+    if (!this.active) {
+      this._optionHovered.next(this);
+    }
   }
 
   /**
