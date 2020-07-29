@@ -30,9 +30,6 @@ export function dtConvertToMilliseconds(
   inputUnit: DtTimeUnit,
 ): number | undefined {
   if (duration >= 0) {
-    return inputUnit === DtTimeUnit.MICROSECOND ||
-      inputUnit === DtTimeUnit.NANOSECOND
-      ? (duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!) / MOVE_COMMA
-      : duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!;
+    return duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!;
   }
 }

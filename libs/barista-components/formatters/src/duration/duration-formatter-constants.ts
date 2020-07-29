@@ -33,13 +33,13 @@ export function toDurationMode(
 // tslint:disable: no-magic-numbers
 /** Factorials needed for converting milliseconds to other time units */
 export const CONVERSION_FACTORS_TO_MS = new Map<DtTimeUnit, number>([
-  [DtTimeUnit.YEAR, 12 * 30.41666 * 24 * 60 * 60 * 1000],
-  [DtTimeUnit.MONTH, 30.41666 * 24 * 60 * 60 * 1000],
-  [DtTimeUnit.DAY, 24 * 60 * 60 * 1000],
-  [DtTimeUnit.HOUR, 60 * 60 * 1000],
-  [DtTimeUnit.MINUTE, 60 * 1000],
-  [DtTimeUnit.SECOND, 1000],
-  [DtTimeUnit.MILLISECOND, 1],
+  [DtTimeUnit.YEAR, 12 * 30.41666 * 24 * 60 * 60 * 1000000],
+  [DtTimeUnit.MONTH, 30.41666 * 24 * 60 * 60 * 1000000],
+  [DtTimeUnit.DAY, 24 * 60 * 60 * 1000000],
+  [DtTimeUnit.HOUR, 60 * 60 * 1000000],
+  [DtTimeUnit.MINUTE, 60 * 1000000],
+  [DtTimeUnit.SECOND, 1000000],
+  [DtTimeUnit.MILLISECOND, 1000000],
   [DtTimeUnit.MICROSECOND, 1000], // Has to be handled differently because IEEE can't handle floating point numbers very well
   [DtTimeUnit.NANOSECOND, 1], // Has to be handled differently because IEEE can't handle floating point numbers very well
 ]);
