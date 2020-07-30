@@ -298,6 +298,5 @@ class DummyOverlay {}
 
 @NgModule({
   declarations: [DummyOverlay],
-  entryComponents: [DummyOverlay],
 })
 export class TestOverlayModule {}
