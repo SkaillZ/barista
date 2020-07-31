@@ -30,8 +30,7 @@ import {
   COULD_NOT_FIND_DEFAULT_PROJECT_ERROR,
 } from './rules';
 // use glob import for mocking
-// tslint:disable-next-line: no-duplicate-imports
-import * as rules from './rules';
+import * as updateWorkspaceRule from './rules/update-workspace-rule';
 
 export async function testNgAdd(
   testTree: Tree,
@@ -81,7 +80,7 @@ describe('Migrate existing angular-components to barista components', () => {
 
   it('should call the migration schematic when legacy imports are detected', async () => {
     const ruleSpy = jest
-      .spyOn(rules, 'updateWorkspaceRule')
+      .spyOn(updateWorkspaceRule, 'updateWorkspaceRule')
       .mockReturnValue(noop);
     await testNgAdd(tree);
     expect(externalSchematicsSpy).toBeCalledTimes(1);
@@ -95,7 +94,7 @@ describe('Migrate existing angular-components to barista components', () => {
 
   it('should update imports of @dynatrace/angular-components to barista-components in package.json', async () => {
     const ruleSpy = jest
-      .spyOn(rules, 'updateWorkspaceRule')
+      .spyOn(updateWorkspaceRule, 'updateWorkspaceRule')
       .mockReturnValue(noop);
     await testNgAdd(tree);
     expect(readJsonFromTree(tree, '/package.json')).toMatchSnapshot();
