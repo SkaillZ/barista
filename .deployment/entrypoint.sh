@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# The script should immediately exit if any command in the script fails.
+set -e
+
 echo "
 ---------------------------------------------------------
 Welcome to the Barista Workspace! 🔥
@@ -16,6 +19,7 @@ if [ "$oldSha" != "$currentSha" ]; then
   echo "⚠️ Need to install packages due to updated package-lock.json"
   # When the checksums are not matching perform an npm install
   npm ci --ignore-scripts
+  npx ngcc
   echo "Successfully updated all packages!"
 else
   echo "All packages are up to date! 🐙"
