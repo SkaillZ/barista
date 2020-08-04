@@ -80,8 +80,8 @@
       "category": "theme",
       "name": "color-primary-100",
       "value": {
-        "surface": "#0b55c5",
-        "abyss": "#3582f4"
+        "surface": "#287878",
+        "abyss": "#3cb5b5"
       },
       "originalValue": {
         "surface": "{!color-surface-primary-100}",
