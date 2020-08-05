@@ -79,19 +79,6 @@
       },
       "originalValue": "{!color-abyss-primary-90}"
     },
-    "fluid-color-abyss-primary-100": {
-      "type": "dt-palette",
-      "category": "dt-palette",
-      "name": "fluid-color-abyss-primary-100",
-      "value": "#3582f4",
-      "meta": {
-        "friendlyName": "abyss primary, contrast 100",
-        "sassVariable": "$color-abyss-primary-100",
-        "customProperty": "--color-abyss-primary-100",
-        "customizable": false
-      },
-      "originalValue": "{!color-abyss-primary-100}"
-    },
     "fluid-color-abyss-primary-110": {
       "type": "dt-palette",
       "category": "dt-palette",
