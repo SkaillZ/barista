@@ -38,20 +38,6 @@ props:
       sassVariable: $color-abyss-primary-90
       customProperty: --color-abyss-primary-90
       customizable: false
-  - name: fluid-color-abyss-primary-100
-    value: "{!color-abyss-primary-100}"
-    meta:
-      friendlyName: abyss primary, contrast 100
-      sassVariable: $color-abyss-primary-100
-      customProperty: --color-abyss-primary-100
-      customizable: false
-  - name: fluid-color-abyss-primary-110
-    value: "{!color-abyss-primary-110}"
-    meta:
-      friendlyName: abyss primary, contrast 110
-      sassVariable: $color-abyss-primary-110
-      customProperty: --color-abyss-primary-110
-      customizable: false
   - name: fluid-color-abyss-primary-120
     value: "{!color-abyss-primary-120}"
     meta:
@@ -86,13 +72,6 @@ props:
       friendlyName: abyss positive, contrast 90
       sassVariable: $color-abyss-positive-90
       customProperty: --color-abyss-positive-90
-      customizable: false
-  - name: fluid-color-abyss-positive-100
-    value: "{!color-abyss-positive-100}"
-    meta:
-      friendlyName: abyss positive, contrast 100
-      sassVariable: $color-abyss-positive-100
-      customProperty: --color-abyss-positive-100
       customizable: false
   - name: fluid-color-abyss-positive-110
     value: "{!color-abyss-positive-110}"
