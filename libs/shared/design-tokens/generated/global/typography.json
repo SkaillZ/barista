@@ -174,32 +174,6 @@
         "textTransform": "none"
       }
     },
-    "body": {
-      "type": "tokens",
-      "category": "typography",
-      "name": "body",
-      "value": {
-        "fontFamily": "Roboto, Helvetica, sans-serif",
-        "fontSize": "1rem",
-        "fontWeight": "400",
-        "lineHeight": "24px",
-        "textTransform": "none"
-      },
-      "comment": "Token contains the styles for a body text",
-      "meta": {
-        "friendlyName": "Body",
-        "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-text",
-        "mixinName": "dt-text"
-      },
-      "originalValue": {
-        "fontFamily": "{!font-family-sans-serif}",
-        "fontSize": "{!typography--font-size}",
-        "fontWeight": "{!typography--emphasis-regular}",
-        "lineHeight": "{!typography--line-height-l}",
-        "textTransform": "none"
-      }
-    },
     "body-emphasized": {
       "type": "tokens",
       "category": "typography",
